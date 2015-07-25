@@ -244,8 +244,16 @@
     [self showAtPoint:self.arrowPoint inView:view width:self.width arrowDirection:self.arrowDirection];
 }
 
-
 #pragma mark - Hiding the Tooltip
+
+- (void)hideAnimated:(BOOL)animated after:(NSTimeInterval)delay
+{
+    [self performSelector:@selector(hideDelayed:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay];
+}
+
+- (void)hideDelayed:(NSNumber *)animated {
+    [self hideAnimated:[animated boolValue]];
+}
 
 - (void)hideAnimated:(BOOL)animated
 {
@@ -275,7 +283,6 @@
     }
 }
 
-
 #pragma mark - Layout (Public)
 
 - (void)setTooltipNeedsLayoutWithHostViewSize:(CGSize)hostViewSize
@@ -303,7 +310,9 @@
         point.x = targetViewFrame.origin.x;
         point.y = targetViewFrame.origin.y + (targetViewFrame.size.height / 2);
     } else if (arrowDirection == JDFTooltipViewArrowDirectionUp) {
-        point.x = targetViewFrame.origin.x + (targetViewFrame.size.width / 2);
+//        point.x = targetViewFrame.origin.x + (targetViewFrame.size.width / 2);
+        point.x = CGRectGetMinX(targetViewFrame);
+//        point.x = targetViewFrame.size.width / 2;
         point.y = CGRectGetMaxY(targetViewFrame);
     } else if (arrowDirection == JDFTooltipViewArrowDirectionDown) {
         point.x = targetViewFrame.origin.x + (targetViewFrame.size.width / 2);
