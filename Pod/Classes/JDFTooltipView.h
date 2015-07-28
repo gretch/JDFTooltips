@@ -202,6 +202,14 @@ typedef void (^JDFTooltipViewCompletionBlock)();
  */
 - (void)hideAnimated:(BOOL)animated;
 
+/**
+*  Hides the tooltip with delay, optionally animated.
+*
+*  @param animated BOOL determining whether to animate the hide or not.
+*  @param delay NSTimeInterval deletermining delay before animation
+*/
+- (void)hideAnimated:(BOOL)animated after:(NSTimeInterval)delay;
+
 #pragma mark Gesture Recognising
 /**
  *  Adds a target/action for taps on the tooltip.
